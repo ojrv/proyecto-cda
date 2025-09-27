@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inicio de Sesión</title>
+  <link rel="stylesheet" href="estilos.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <div class="logo-container">
+    <img src="logo_cda.png" alt="Logo Iglesia Casa del Alfarero" />
+  </div>
+
+  <main>
+    <h3>Acceso al Sistema Institucional</h3>
+
+    <form id="formLogin" autocomplete="on">
+      <label for="alias">Alias</label>
+      <input type="text" id="alias" name="alias" required />
+
+      <label for="clave">Contraseña</label>
+      <input type="password" id="clave" name="password" required />
+
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+  </main>
+
+  <script src="login.js"></script>
+</body>
+</html>

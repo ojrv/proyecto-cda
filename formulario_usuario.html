@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Usuario</title>
+  <link rel="stylesheet" href="estilos.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <div class="logo-container">
+    <img src="logo_cda.png" alt="Logo Iglesia Casa del Alfarero">
+  </div>
+
+  <main>
+    <h3>Formulario de Registro de Usuario</h3>
+
+    <form id="formUsuario">
+      <label for="nombreUsuario">Nombre de Usuario</label>
+      <input type="text" id="nombreusuario" name="nombreusuario" required>
+
+      <label for="clave">Contraseña</label>
+      <input type="password" id="clave" name="clave" required>
+
+      <label for="nivelAcceso">Nivel de Acceso</label>
+      <select id="nivelAcceso" name="nivelacceso">
+        <option value="admin">Administrador</option>
+        <option value="editor">Editor</option>
+        <option value="lector">Lector</option>
+      </select>
+
+      <label for="activo">¿Activo?</label>
+      <select id="activo" name="activo">
+        <option value="true">Sí</option>
+        <option value="false">No</option>
+      </select>
+
+      <button type="submit">Registrar Usuario</button>
+    </form>
+
+    <div style="text-align: center; margin-top: 2em;">
+      <a href="index.html">
+        <button type="button" class="boton-volver">⬅️ Volver al Dashboard</button>
+      </a>
+    </div>
+  </main>
+
+  <script src="registro.js"></script>
+</body>
+</html>
