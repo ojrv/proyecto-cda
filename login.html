@@ -25,8 +25,76 @@
 
       <button type="submit">Iniciar Sesión</button>
     </form>
+
+    <div id="mensaje-login" class="mensaje"></div>
   </main>
 
-  <script src="login.js"></script>
+  <!-- Dashboards por rol -->
+  <section id="dashboard-admin" class="dashboard" style="display:none">
+    <h4>Panel de Administración</h4>
+    <p>Gestión de usuarios, roles y módulos institucionales.</p>
+  </section>
+
+  <section id="dashboard-editor" class="dashboard" style="display:none">
+    <h4>Panel de Edición</h4>
+    <p>Carga y edición de contenido institucional.</p>
+  </section>
+
+  <section id="dashboard-lector" class="dashboard" style="display:none">
+    <h4>Panel de Lectura</h4>
+    <p>Visualización de contenidos y reportes.</p>
+  </section>
+
+  <script>
+    const supabase = createClient('https://TU_PROYECTO.supabase.co', 'TU_PUBLIC_KEY');
+
+    document.getElementById('formLogin').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const alias = document.getElementById('alias').value.trim();
+      const clave = document.getElementById('clave').value.trim();
+
+      const { data: usuario, error } = await supabase
+        .from('usuario')
+        .select(`
+          nombreusuario,
+          clave,
+          activo,
+          nivelesusuario (
+            nombrenivel
+          )
+        `)
+        .eq('alias', alias)
+        .single();
+
+      const mensaje = document.getElementById('mensaje-login');
+
+      if (error || !usuario) {
+        mensaje.textContent = 'Alias no encontrado';
+        return;
+      }
+
+      if (!usuario.activo) {
+        mensaje.textContent = 'Usuario inactivo';
+        return;
+      }
+
+      if (usuario.clave !== clave) {
+        mensaje.textContent = 'Contraseña incorrecta';
+        return;
+      }
+
+      const rol = usuario.nivelesusuario?.nombrenivel || 'lector';
+      mensaje.textContent = `Bienvenido, ${usuario.nombreusuario} – Rol: ${rol}`;
+      mostrarDashboardPorRol(rol);
+    });
+
+    function mostrarDashboardPorRol(rol) {
+      document.querySelectorAll('.dashboard').forEach(div => div.style.display = 'none');
+      const id = `dashboard-${rol}`;
+      const modulo = document.getElementById(id);
+      if (modulo) modulo.style.display = 'block';
+    }
+  </script>
 </body>
 </html>
