@@ -1,6 +1,10 @@
-# Dashboard Institucional – Iglesia Casa del Alfarero
+# 🎛️ Dashboard Institucional – Iglesia Casa del Alfarero
 
-Este proyecto es un sistema web modular diseñado para la gestión visual y funcional del Grupo de Alabanza y Adoración de la Iglesia Casa del Alfarero. Utiliza Supabase como backend en tiempo real y está optimizado para escalabilidad, claridad visual y mantenimiento profesional.
+Sistema web modular para la gestión del Grupo de Alabanza y Adoración. Conectado a Supabase, visualmente coherente y escalable para futuras ampliaciones.
+
+![Estado del Proyecto](https://img.shields.io/badge/estado-en%20desarrollo-yellow)
+![Licencia](https://img.shields.io/badge/licencia-MIT-blue)
+![Deploy](https://img.shields.io/badge/deploy-GitHub%20Pages-green)
 
 ## 📦 Estructura del Proyecto
 
@@ -19,27 +23,13 @@ Este proyecto es un sistema web modular diseñado para la gestión visual y func
 
 ## 🧠 Tecnologías Utilizadas
 
-- HTML5 + CSS3 (estructura modular y visual institucional)
-- JavaScript (validación, conexión y lógica de interfaz)
-- Supabase (backend en tiempo real, autenticación y base de datos relacional)
-- GitHub Pages (hosting público del dashboard)
+- HTML5 + CSS3
+- JavaScript
+- Supabase
+- GitHub Pages
 
-## 🗂️ Organización y Buenas Prácticas
+## 📥 Instrucciones de Despliegue
 
-- Repositorio limpio y documentado.
-- Separación clara entre lógica, estilos y estructura.
-- Normalización de base de datos con integridad referencial.
-- Estilos visuales definidos para evitar cambios repetitivos.
-
-## 📌 Próximos Bloques
-
-- Personalización del dashboard según rol.
-- Vistas combinadas y filtros dinámicos.
-- Panel de administración para gestión de usuarios.
-- Exportación de datos y reportes visuales.
-
-## 🙌 Créditos
-
-Desarrollado por Oswaldo – Estratega visual y técnico, apasionado por la depuración, la claridad modular y la escalabilidad institucional.
-
----
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/tu-usuario/dashboard-alfarero.git
