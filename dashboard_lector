@@ -12,6 +12,11 @@
     <h1>Grupo de Alabanza y Adoración</h1>
     <h2>Panel del Lector</h2>
   </header>
+<section id="infoSesion">
+  <p>Usuario: <strong id="nombreUsuario"></strong></p>
+  <p>Fecha: <strong id="fechaActual"></strong></p>
+  <p>Hora: <strong id="horaActual"></strong></p>
+</section>
 
   <main>
     <section id="bienvenida">
