@@ -1,56 +1,43 @@
-// Inicializar Supabase
-const supabase = createClient('https://TU_PROYECTO.supabase.co', 'TU_PUBLIC_KEY');
+// Inicialización de Supabase
+const supabase = createClient('https://TU_PROYECTO.supabase.co', 'TU_PUBLIC_API_KEY');
 
-document.getElementById('formLogin').addEventListener('submit', async (e) => {
+document.getElementById('loginForm').addEventListener('submit', async function (e) {
   e.preventDefault();
 
   const alias = document.getElementById('alias').value.trim();
   const clave = document.getElementById('clave').value.trim();
-  const mensaje = document.getElementById('mensaje-login');
+  const mensaje = document.getElementById('mensaje');
 
-  // Consulta 1: buscar usuario por alias
+  if (!alias || !clave) {
+    mensaje.textContent = 'Por favor, completá todos los campos.';
+    return;
+  }
+
+  // Buscar usuario por alias
   const { data: usuario, error } = await supabase
     .from('usuario')
-    .select('nombreusuario, clave, activo, nivelid')
+    .select('*')
     .eq('alias', alias)
     .single();
 
   if (error || !usuario) {
-    mensaje.textContent = 'Alias no encontrado';
-    return;
-  }
-
-  if (!usuario.activo) {
-    mensaje.textContent = 'Usuario inactivo';
+    mensaje.textContent = 'Alias no encontrado.';
     return;
   }
 
   if (usuario.clave !== clave) {
-    mensaje.textContent = 'Contraseña incorrecta';
+    mensaje.textContent = 'Contraseña incorrecta.';
     return;
   }
 
-  // Consulta 2: obtener nombre del rol
-  const { data: rolData, error: rolError } = await supabase
-    .from('nivelesusuario')
-    .select('nombrenivel')
-    .eq('id', usuario.nivelid)
-    .single();
-
-  if (rolError || !rolData) {
-    mensaje.textContent = 'Rol no encontrado';
+  if (!usuario.activo) {
+    mensaje.textContent = 'Usuario inactivo.';
     return;
   }
 
-  const rol = rolData.nombrenivel;
-  mensaje.textContent = `Bienvenido, ${usuario.nombreusuario} – Rol: ${rol}`;
-  mostrarDashboardPorRol(rol);
+  // Redirección según nivel
+  localStorage.setItem('usuarioid', usuario.id);
+  localStorage.setItem('nivel', usuario.nivelid);
+
+  window.location.href = 'dashboard.html';
 });
-
-// Mostrar dashboard según rol
-function mostrarDashboardPorRol(rol) {
-  document.querySelectorAll('.dashboard').forEach(div => div.style.display = 'none');
-  const id = `dashboard-${rol}`;
-  const modulo = document.getElementById(id);
-  if (modulo) modulo.style.display = 'block';
-}
