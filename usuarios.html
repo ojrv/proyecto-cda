@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Usuarios</title>
+  <link rel="stylesheet" href="estilos.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <header class="encabezado">
+    <img src="logo_cda.png" alt="Logo institucional">
+    <h1>Grupo de Alabanza y Adoración</h1>
+    <h2>Gestión de Usuarios</h2>
+  </header>
+
+  <main>
+    <div class="formulario-dashboard">
+      <h3>Agregar nuevo usuario</h3>
+      <form id="formUsuario">
+        <label for="alias">Alias</label>
+        <input type="text" id="alias" required>
+
+        <label for="clave">Contraseña</label>
+        <input type="password" id="clave" required>
+
+        <label for="nivel">Nivel</label>
+        <select id="nivel">
+          <option value="1">Administrador</option>
+          <option value="2">Editor</option>
+          <option value="3">Lector</option>
+        </select>
+
+        <label for="activo">Activo</label>
+        <select id="activo">
+          <option value="true">Sí</option>
+          <option value="false">No</option>
+        </select>
+
+        <button type="submit">Guardar usuario</button>
+        <div id="mensaje"></div>
+      </form>
+    </div>
+
+    <div class="formulario-dashboard">
+      <h3>Listado de usuarios</h3>
+      <table id="tablaUsuarios">
+        <thead>
+          <tr>
+            <th>Alias</th>
+            <th>Nivel</th>
+            <th>Activo</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="usuarios.js"></script>
+</body>
+</html>
