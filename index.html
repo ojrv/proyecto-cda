@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <title>Ingreso Institucional</title>
   <link rel="stylesheet" href="estilos.css">
+
+  <!-- ✅ Cargar Supabase antes de login.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <header class="encabezado">
@@ -25,6 +28,7 @@
     </form>
   </main>
 
+  <!-- ✅ login.js se carga después de Supabase -->
   <script src="login.js"></script>
 </body>
 </html>
