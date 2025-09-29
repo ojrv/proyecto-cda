@@ -42,5 +42,20 @@ document.getElementById('loginForm').addEventListener('submit', async function (
   localStorage.setItem('usuarioid', usuario.id);
   localStorage.setItem('nivel', usuario.nivelid);
 
-  window.location.href = 'dashboard.html';
+  let destino = '';
+switch (usuario.nivelid) {
+  case 1:
+    destino = 'dashboard_admin.html';
+    break;
+  case 2:
+    destino = 'dashboard_editor.html';
+    break;
+  case 3:
+    destino = 'dashboard_lector.html';
+    break;
+  default:
+    destino = 'dashboard.html'; // fallback
+}
+
+window.location.href = destino;
 });
