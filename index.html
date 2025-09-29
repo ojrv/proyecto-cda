@@ -2,29 +2,20 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard – Casa del Alfarero</title>
+  <title>Ingreso Institucional</title>
   <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-
-  <div class="logo-container">
-    <img src="logo_cda.png" alt="Logo Iglesia Casa del Alfarero">
+  <div class="login-container">
+    <img src="logo_cda.png" alt="Logo institucional">
+    <h2>Ingreso al sistema</h2>
+    <form id="loginForm">
+      <input type="text" id="alias" placeholder="Alias institucional" required>
+      <input type="password" id="clave" placeholder="Contraseña" required>
+      <button type="submit">Ingresar</button>
+    </form>
+    <div id="mensaje"></div>
   </div>
-
-  <main>
-    <h2>Panel de Control</h2>
-    <nav>
-      <ul>
-        <li><a href="formulario_usuario.html">Registrar Usuario</a></li>
-        <li><a href="usuarios.html">Ver Usuarios</a></li>
-        <li><a href="agenda.html">Agenda de Ensayos</a></li>
-        <li><a href="recursos.html">Recursos Bíblicos</a></li>
-      </ul>
-    </nav>
-  </main>
-
+  <script src="login.js"></script>
 </body>
-
 </html>
-
