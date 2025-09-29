@@ -40,7 +40,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
   localStorage.setItem('usuarioid', usuario.id);
   localStorage.setItem('nivel', usuario.nivelid);
   localStorage.setItem('alias', usuario.alias);
-  localStorage.setItem('nombre', usuario.nombre || usuario.alias);
+  localStorage.setItem('nombre', usuario.nombreusuario || usuario.alias);
 
   // Derivación automática
   let destino = '';
