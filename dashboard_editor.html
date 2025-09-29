@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel del Editor</title>
+  <link rel="stylesheet" href="estilos.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <header class="encabezado">
+    <img src="logo_cda.png" alt="Logo institucional">
+    <h1>Grupo de Alabanza y Adoración</h1>
+    <h2>Panel del Editor</h2>
+  </header>
+
+  <main>
+    <section id="bienvenida">
+      <p>Bienvenido, <strong id="aliasUsuario"></strong>. Nivel: <strong>Editor</strong></p>
+      <button onclick="cerrarSesion()">Cerrar sesión</button>
+    </section>
+
+    <section id="moduloReuniones">
+      <h3>Gestión de Reuniones</h3>
+      <p>Este módulo estará disponible próximamente.</p>
+    </section>
+
+    <section id="moduloRepertorio">
+      <h3>Armado de Tanda</h3>
+      <p>Este módulo estará disponible próximamente.</p>
+    </section>
+  </main>
+
+  <script src="dashboard_editor.js"></script>
+</body>
+</html>
