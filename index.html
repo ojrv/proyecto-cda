@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ✅ Esto permite que se adapte a móviles -->
   <title>Ingreso Institucional</title>
   <link rel="stylesheet" href="estilos.css">
 
@@ -16,7 +17,7 @@
   </header>
 
   <main>
-    <form id="loginForm">
+    <form id="loginForm" class="formulario-dashboard"> <!-- ✅ Clase agregada para aplicar estilos responsive -->
       <label for="alias">Alias institucional</label>
       <input type="text" id="alias" placeholder="Tu usuario" required>
 
@@ -32,4 +33,3 @@
   <script src="login.js"></script>
 </body>
 </html>
-
