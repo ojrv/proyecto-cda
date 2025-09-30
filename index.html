@@ -1,38 +1,88 @@
-const supabase = supabase.createClient(
-  'https://fdlnptxefjzoxeiqsujx.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkbG5wdHhlZmp6b3hlaXFzdWp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NDE3ODIsImV4cCI6MjA3NDQxNzc4Mn0.BI9M80Fr-AevXnHBATTJZkRjFrCGn4x7cgDPkTinNms'
-);
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ingreso Institucional</title>
+  <link rel="stylesheet" href="estilos.css" />
 
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
+  <!-- ✅ Cargar Supabase antes del script de login -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <header class="encabezado">
+    <img src="logo_cda.png" alt="Logo institucional" />
+    <h1>Grupo de Adoración y Alabanza</h1>
+    <h2>Ingreso al sistema</h2>
+  </header>
 
-  const alias = document.getElementById('alias').value.trim();
-  const clave = document.getElementById('clave').value;
+  <main>
+    <form id="loginForm" class="formulario-dashboard">
+      <label for="alias">Alias institucional</label>
+      <input type="text" id="alias" placeholder="Tu alias" required />
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: alias,
-    password: clave
-  });
+      <label for="clave">Contraseña</label>
+      <input type="password" id="clave" placeholder="Tu contraseña" required />
 
-  if (error) {
-    document.getElementById('mensaje').textContent = 'Alias o contraseña incorrectos';
-    return;
-  }
+      <button type="submit">Ingresar</button>
+      <div id="mensaje"></div>
+    </form>
+  </main>
 
-  const rol = data.user.user_metadata?.rol || 'musico';
+  <script>
+    const supabase = supabase.createClient(
+      'https://fdlnptxefjzoxeiqsujx.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkbG5wdHhlZmp6b3hlaXFzdWp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NDE3ODIsImV4cCI6MjA3NDQxNzc4Mn0.BI9M80Fr-AevXnHBATTJZkRjFrCGn4x7cgDPkTinNms'
+    );
 
-  // ✅ Redirigir según rol
-  switch (rol) {
-    case 'admin':
-      window.location.href = 'dashboard_admin.html';
-      break;
-    case 'editor':
-      window.location.href = 'dashboard_editor.html';
-      break;
-    case 'musico':
-      window.location.href = 'dashboard_musico.html';
-      break;
-    default:
-      alert('Rol no reconocido');
-  }
-});
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const alias = document.getElementById('alias').value.trim();
+      const clave = document.getElementById('clave').value;
+
+      // ✅ Buscar usuario por alias en la tabla "usuario"
+      const { data: usuarios, error: errorAlias } = await supabase
+        .from('usuario')
+        .select('email, rolid')
+        .eq('alias', alias)
+        .single();
+
+      if (errorAlias || !usuarios) {
+        document.getElementById('mensaje').textContent = 'Alias no encontrado';
+        return;
+      }
+
+      const email = usuarios.email;
+
+      // ✅ Autenticación con email y contraseña
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password: clave
+      });
+
+      if (error || !data?.user) {
+        document.getElementById('mensaje').textContent = 'Contraseña incorrecta';
+        return;
+      }
+
+      // ✅ Obtener rol desde metadata o desde la tabla
+      const rol = data.user.user_metadata?.rol || 'musico';
+
+      switch (rol) {
+        case 'admin':
+          window.location.href = 'dashboard_admin.html';
+          break;
+        case 'editor':
+          window.location.href = 'dashboard_editor.html';
+          break;
+        case 'musico':
+          window.location.href = 'dashboard_musico.html';
+          break;
+        default:
+          alert('Rol no reconocido');
+      }
+    });
+  </script>
+</body>
+</html>
