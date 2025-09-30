@@ -19,7 +19,7 @@ body {
 .encabezado {
   text-align: center;
   margin-bottom: 2em;
-  position: relative; /* ✅ permite posicionar infoSesion sin solapar */
+  position: relative;
 }
 
 .encabezado img {
@@ -89,10 +89,10 @@ button:hover {
   background-color: var(--color-boton-hover);
 }
 
+/* ✅ Bloque de sesión centrado */
 #infoSesion {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+  position: static;
+  margin: 0 auto 1.5em auto;
   background-color: #eef4ff;
   border: 1px solid #ccc;
   padding: 10px 15px;
@@ -101,8 +101,8 @@ button:hover {
   color: #333;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   border-radius: 6px;
-  text-align: right;
-  z-index: 1000;
+  text-align: center;
+  max-width: 320px;
 }
 
 table {
@@ -124,25 +124,6 @@ th {
 
 tr:nth-child(even) {
   background-color: #f9f9f9;
-}
-
-/* 🔹 Responsive para tablets */
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  #infoSesion {
-    top: 10px;
-    right: 10px;
-    max-width: 240px;
-    font-size: 13px;
-  }
-
-  .encabezado img {
-    max-width: 100px;
-  }
-
-  .encabezado h1,
-  .encabezado h2 {
-    margin-right: 260px;
-  }
 }
 
 /* 🔹 Responsive para celulares */
@@ -173,12 +154,6 @@ tr:nth-child(even) {
 
   .encabezado img {
     height: 60px;
-  }
-
-  #infoSesion {
-    position: fixed;
-    margin-bottom: 15px;
-    text-align: left;
   }
 
   table {
