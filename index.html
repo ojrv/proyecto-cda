@@ -29,10 +29,11 @@
     </form>
   </main>
 
+  <!-- ✅ Script de login con alias institucional -->
   <script>
-    const supabase = supabase.createClient(
-      'https://fdlnptxefjzoxeiqsujx.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkbG5wdHhlZmp6b3hlaXFzdWp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NDE3ODIsImV4cCI6MjA3NDQxNzc4Mn0.BI9M80Fr-AevXnHBATTJZkRjFrCGn4x7cgDPkTinNms'
+    const client = window.supabase.createClient(
+      'https://TU_PROYECTO.supabase.co',
+      'TU_PUBLIC_API_KEY'
     );
 
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -41,22 +42,22 @@
       const alias = document.getElementById('alias').value.trim();
       const clave = document.getElementById('clave').value;
 
-      // ✅ Buscar usuario por alias en la tabla "usuario"
-      const { data: usuarios, error: errorAlias } = await supabase
+      // 🔍 Buscar email asociado al alias en la tabla "usuario"
+      const { data: usuario, error: errorAlias } = await client
         .from('usuario')
         .select('email, rolid')
         .eq('alias', alias)
         .single();
 
-      if (errorAlias || !usuarios) {
+      if (errorAlias || !usuario) {
         document.getElementById('mensaje').textContent = 'Alias no encontrado';
         return;
       }
 
-      const email = usuarios.email;
+      const email = usuario.email;
 
-      // ✅ Autenticación con email y contraseña
-      const { data, error } = await supabase.auth.signInWithPassword({
+      // 🔐 Autenticación con email y contraseña
+      const { data, error } = await client.auth.signInWithPassword({
         email,
         password: clave
       });
@@ -66,9 +67,10 @@
         return;
       }
 
-      // ✅ Obtener rol desde metadata o desde la tabla
+      // 🧠 Obtener rol desde metadata o usar rolid como respaldo
       const rol = data.user.user_metadata?.rol || 'musico';
 
+      // 🚀 Redirigir según rol
       switch (rol) {
         case 'admin':
           window.location.href = 'dashboard_admin.html';
