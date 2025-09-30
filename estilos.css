@@ -209,13 +209,18 @@ tr:nth-child(even) {
 }
 
 #infoSesion {
-  background-color: #f9f9f9;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #eef4ff;
   border: 1px solid #ccc;
   padding: 10px 15px;
-  margin: 20px;
   font-family: 'Segoe UI', sans-serif;
   font-size: 14px;
   color: #333;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  text-align: right;
+  z-index: 1000;
 }
+
