@@ -223,4 +223,36 @@ tr:nth-child(even) {
   text-align: right;
   z-index: 1000;
 }
+input, select, button {
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
 
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+@media screen and (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  #infoSesion {
+    position: static;
+    margin-bottom: 15px;
+    text-align: left;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  h1, h2, h3 {
+    font-size: 18px;
+  }
+}
