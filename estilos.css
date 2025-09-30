@@ -231,3 +231,39 @@ tr:nth-child(even) {
   margin: 0.3em 0;
   font-weight: normal;
 }
+
+#panelFuncionesPorRol {
+  margin: 2em auto;
+  max-width: 600px;
+  padding: 1.5em;
+  background-color: #fffaf0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.bloque-rol {
+  margin-bottom: 2em;
+  padding: 1em;
+  border-left: 4px solid var(--color-primario);
+  background-color: #f9f9f9;
+  border-radius: 6px;
+}
+
+.bloque-rol h4 {
+  margin-bottom: 0.5em;
+  color: var(--color-secundario);
+  font-size: 18px;
+}
+
+.bloque-rol label {
+  display: block;
+  margin: 0.4em 0;
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.bloque-rol input[type="checkbox"] {
+  margin-right: 8px;
+  transform: scale(1.2);
+}
