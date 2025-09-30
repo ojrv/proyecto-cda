@@ -89,7 +89,7 @@ button:hover {
   background-color: var(--color-boton-hover);
 }
 
-/* ✅ Bloque de sesión centrado */
+/* ✅ Bloque de sesión institucional */
 #infoSesion {
   position: static;
   margin: 0 auto 1.5em auto;
@@ -104,6 +104,27 @@ button:hover {
   text-align: center;
   max-width: 320px;
 }
+
+#infoSesion p {
+  margin: 0.5em 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.icono {
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.icono.usuario::before { content: "👤"; }
+.icono.rol::before { content: "🎚️"; }
+.icono.fecha::before { content: "📅"; }
+.icono.hora::before { content: "⏰"; }
 
 table {
   width: 100%;
@@ -158,5 +179,28 @@ tr:nth-child(even) {
 
   table {
     font-size: 12px;
+  }
+
+  #infoSesion p {
+    justify-content: center;
+  }
+
+  #infoSesion span.icono + strong {
+    font-weight: normal;
+  }
+}
+
+/* 🔹 Responsive para tablets */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .formulario-dashboard {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  input, select, button {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
   }
 }
