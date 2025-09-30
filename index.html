@@ -1,35 +1,38 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ✅ Esto permite que se adapte a móviles -->
-  <title>Ingreso Institucional</title>
-  <link rel="stylesheet" href="estilos.css">
+const supabase = supabase.createClient(
+  'https://fdlnptxefjzoxeiqsujx.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkbG5wdHhlZmp6b3hlaXFzdWp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NDE3ODIsImV4cCI6MjA3NDQxNzc4Mn0.BI9M80Fr-AevXnHBATTJZkRjFrCGn4x7cgDPkTinNms'
+);
 
-  <!-- ✅ Cargar Supabase antes de login.js -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</head>
-<body>
-  <header class="encabezado">
-    <img src="logo_cda.png" alt="Logo institucional">
-    <h1>Grupo de Adoración y Alabanza</h1>
-    <h2>Ingreso al sistema</h2>
-  </header>
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-  <main>
-    <form id="loginForm" class="formulario-dashboard"> <!-- ✅ Clase agregada para aplicar estilos responsive -->
-      <label for="alias">Alias institucional</label>
-      <input type="text" id="alias" placeholder="Tu usuario" required>
+  const alias = document.getElementById('alias').value.trim();
+  const clave = document.getElementById('clave').value;
 
-      <label for="clave">Contraseña</label>
-      <input type="password" id="clave" placeholder="Tu contraseña" required>
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: alias,
+    password: clave
+  });
 
-      <button type="submit">Ingresar</button>
-      <div id="mensaje"></div>
-    </form>
-  </main>
+  if (error) {
+    document.getElementById('mensaje').textContent = 'Alias o contraseña incorrectos';
+    return;
+  }
 
-  <!-- ✅ login.js se carga después de Supabase -->
-  <script src="login.js"></script>
-</body>
-</html>
+  const rol = data.user.user_metadata?.rol || 'musico';
+
+  // ✅ Redirigir según rol
+  switch (rol) {
+    case 'admin':
+      window.location.href = 'dashboard_admin.html';
+      break;
+    case 'editor':
+      window.location.href = 'dashboard_editor.html';
+      break;
+    case 'musico':
+      window.location.href = 'dashboard_musico.html';
+      break;
+    default:
+      alert('Rol no reconocido');
+  }
+});
