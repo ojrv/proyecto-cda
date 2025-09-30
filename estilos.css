@@ -239,6 +239,10 @@ form {
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
+  .encabezado {
+    position: relative; /* 🔧 permite posicionar infoSesion sin solapar */
+  }
+
   #infoSesion {
     top: 10px;
     right: 10px;
@@ -250,7 +254,8 @@ form {
     max-width: 100px;
   }
 
-  .encabezado h1, .encabezado h2 {
+  .encabezado h1,
+  .encabezado h2 {
     margin-right: 260px; /* 🔧 espacio para que no se solapen con infoSesion */
   }
 }
@@ -272,6 +277,7 @@ form {
   h1, h2, h3 {
     font-size: 18px;
   }
+
 
 
 
