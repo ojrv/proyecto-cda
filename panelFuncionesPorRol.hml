@@ -1,5 +1,6 @@
 <section id="panelFuncionesPorRol">
   <h3>Funciones por rol</h3>
+
   <div class="bloque-rol" data-rol="admin">
     <h4>Admin</h4>
     <label><input type="checkbox" data-funcion="gestionar_usuarios"> Gestión de usuarios</label>
@@ -8,5 +9,16 @@
     <label><input type="checkbox" data-funcion="gestionar_tandas"> Gestión de tandas</label>
     <label><input type="checkbox" data-funcion="configuracion"> Configuración</label>
   </div>
-  <!-- Repetir bloque para cada rol -->
+
+  <div class="bloque-rol" data-rol="editor">
+    <h4>Editor</h4>
+    <label><input type="checkbox" data-funcion="gestionar_reuniones"> Gestión de reuniones</label>
+    <label><input type="checkbox" data-funcion="gestionar_canciones"> Gestión de canciones</label>
+    <label><input type="checkbox" data-funcion="gestionar_tandas"> Gestión de tandas</label>
+  </div>
+
+  <div class="bloque-rol" data-rol="musico">
+    <h4>Músico</h4>
+    <label><input type="checkbox" data-funcion="gestionar_tandas"> Visualización de tandas</label>
+  </div>
 </section>
