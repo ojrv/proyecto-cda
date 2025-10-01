@@ -29,8 +29,8 @@
 
   <script>
     const client = window.supabase.createClient(
-      'https://fdlnptxefjzoxeiqsujx.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkbG5wdHhlZmp6b3hlaXFzdWp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NDE3ODIsImV4cCI6MjA3NDQxNzc4Mn0.BI9M80Fr-AevXnHBATTJZkRjFrCGn4x7cgDPkTinNms'
+      'https://TU_PROYECTO.supabase.co',
+      'TU_PUBLIC_API_KEY'
     );
 
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -42,7 +42,7 @@
       // 🔍 Buscar usuario por alias
       const { data: usuario, error } = await client
         .from('usuario')
-        .select('alias, clave, rolid, activo')
+        .select('alias, clave, nivelid, activo')
         .eq('alias', alias)
         .single();
 
@@ -61,8 +61,8 @@
         return;
       }
 
-      // 🚀 Redirigir según rolid
-      switch (usuario.rolid) {
+      // 🚀 Redirigir según nivelid
+      switch (usuario.nivelid) {
         case 1:
           window.location.href = 'dashboard_admin.html';
           break;
@@ -73,7 +73,7 @@
           window.location.href = 'dashboard_musico.html';
           break;
         default:
-          alert('Rol no reconocido');
+          alert('Nivel no reconocido');
       }
     });
   </script>
