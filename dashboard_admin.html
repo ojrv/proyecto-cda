@@ -25,10 +25,11 @@
 
     <!-- ⚙️ Funciones disponibles -->
     <section class="funciones-dashboard">
-      <button>Registrar nuevo usuario</button>
-      <button>Editar niveles</button>
-      <button>Ver estadísticas</button>
-      <button>Configuración institucional</button>
+      <button onclick="registrarUsuario()">Registrar nuevo usuario</button>
+      <button onclick="editarNiveles()">Editar niveles institucionales</button>
+      <button onclick="verEstadisticas()">Ver estadísticas por nivel</button>
+      <button onclick="gestionarUsuarios()">Gestión de usuarios activos</button>
+      <button onclick="configuracionSistema()">Configuración del sistema</button>
     </section>
   </main>
 
@@ -69,5 +70,27 @@
       background-color: #e0e0e0;
     }
   </style>
+
+  <script>
+    function registrarUsuario() {
+      window.location.href = 'registro.html';
+    }
+
+    function editarNiveles() {
+      alert('Función en desarrollo: edición de niveles');
+    }
+
+    function verEstadisticas() {
+      alert('Función en desarrollo: estadísticas por nivel');
+    }
+
+    function gestionarUsuarios() {
+      alert('Función en desarrollo: gestión de usuarios');
+    }
+
+    function configuracionSistema() {
+      alert('Función en desarrollo: configuración institucional');
+    }
+  </script>
 </body>
 </html>
