@@ -19,8 +19,8 @@
     <section class="bloque-sesion">
       <div><i class="fas fa-user"></i> Oswaldo Rosas</div>
       <div><i class="fas fa-shield-alt"></i> Administrador</div>
-      <div><i class="fas fa-calendar-day"></i> martes, 30 de setiembre de 2025</div>
-      <div><i class="fas fa-clock"></i> 01:36:20 p. m.</div>
+      <div><i class="fas fa-calendar-day"></i> miércoles, 1 de octubre de 2025</div>
+      <div><i class="fas fa-clock"></i> <span id="horaActual"></span></div>
     </section>
 
     <!-- ⚙️ Funciones disponibles -->
@@ -72,6 +72,22 @@
   </style>
 
   <script>
+    // ⏰ Reloj institucional en tiempo real
+    function actualizarHora() {
+      const ahora = new Date();
+      const opciones = {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      };
+      const horaFormateada = ahora.toLocaleTimeString('es-UY', opciones);
+      document.getElementById('horaActual').textContent = horaFormateada;
+    }
+
+    setInterval(actualizarHora, 1000);
+
+    // 🔗 Funciones preliminares
     function registrarUsuario() {
       window.location.href = 'registro.html';
     }
