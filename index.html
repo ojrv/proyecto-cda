@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ingreso Institucional</title>
   <link rel="stylesheet" href="estilos.css" />
-
-  <!-- ✅ Cargar Supabase antes del script de login -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -29,7 +27,6 @@
     </form>
   </main>
 
-  <!-- ✅ Script de login con alias institucional -->
   <script>
     const client = window.supabase.createClient(
       'https://fdlnptxefjzoxeiqsujx.supabase.co',
@@ -42,43 +39,37 @@
       const alias = document.getElementById('alias').value.trim();
       const clave = document.getElementById('clave').value;
 
-      // 🔍 Buscar email asociado al alias en la tabla "usuario"
-      const { data: usuario, error: errorAlias } = await client
+      // 🔍 Buscar usuario por alias
+      const { data: usuario, error } = await client
         .from('usuario')
-        .select('email, rolid')
+        .select('alias, clave, rolid, activo')
         .eq('alias', alias)
         .single();
 
-      if (errorAlias || !usuario) {
+      if (error || !usuario) {
         document.getElementById('mensaje').textContent = 'Alias no encontrado';
         return;
       }
 
-      const email = usuario.email;
+      if (!usuario.activo) {
+        document.getElementById('mensaje').textContent = 'Usuario inactivo';
+        return;
+      }
 
-      // 🔐 Autenticación con email y contraseña
-      const { data, error } = await client.auth.signInWithPassword({
-        email,
-        password: clave
-      });
-
-      if (error || !data?.user) {
+      if (usuario.clave !== clave) {
         document.getElementById('mensaje').textContent = 'Contraseña incorrecta';
         return;
       }
 
-      // 🧠 Obtener rol desde metadata o usar rolid como respaldo
-      const rol = data.user.user_metadata?.rol || 'musico';
-
-      // 🚀 Redirigir según rol
-      switch (rol) {
-        case 'admin':
+      // 🚀 Redirigir según rolid
+      switch (usuario.rolid) {
+        case 1:
           window.location.href = 'dashboard_admin.html';
           break;
-        case 'editor':
+        case 2:
           window.location.href = 'dashboard_editor.html';
           break;
-        case 'musico':
+        case 3:
           window.location.href = 'dashboard_musico.html';
           break;
         default:
@@ -88,4 +79,3 @@
   </script>
 </body>
 </html>
-
