@@ -15,6 +15,7 @@
   </header>
 
   <main>
+    <!-- 🔐 Bloque de sesión -->
     <section class="bloque-sesion">
       <div><i class="fas fa-user"></i> Oswaldo Rosas</div>
       <div><i class="fas fa-shield-alt"></i> Administrador</div>
@@ -22,6 +23,7 @@
       <div><i class="fas fa-clock"></i> <span id="horaActual"></span></div>
     </section>
 
+    <!-- ⚙️ Funciones disponibles -->
     <section class="formulario-dashboard">
       <button onclick="registrarUsuario()">Registrar nuevo usuario</button>
       <button onclick="editarNiveles()">Editar niveles institucionales</button>
@@ -32,6 +34,7 @@
   </main>
 
   <script>
+    // ⏰ Reloj institucional en tiempo real
     function actualizarHora() {
       const ahora = new Date();
       const opciones = {
@@ -46,6 +49,7 @@
 
     setInterval(actualizarHora, 1000);
 
+    // 🔗 Funciones preliminares
     function registrarUsuario() {
       window.location.href = 'registro.html';
     }
@@ -66,5 +70,77 @@
       alert('Función en desarrollo: configuración institucional');
     }
   </script>
+
+  <style>
+    body {
+      background-color: #fdf6e3;
+      color: #333333;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .encabezado {
+      background-color: #2c3e50;
+      color: #ffffff;
+      text-align: center;
+      padding: 20px;
+      border-bottom: 3px solid #cfa93f;
+    }
+
+    .encabezado img {
+      max-height: 80px;
+      margin-bottom: 10px;
+    }
+
+    .encabezado h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .encabezado h2 {
+      margin: 5px 0 0;
+      font-size: 1.2rem;
+      color: #f8f8f8;
+    }
+
+    .bloque-sesion {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 1rem;
+      margin: 30px 0 40px 30px; /* ← separación aumentada */
+    }
+
+    .bloque-sesion i {
+      margin-right: 8px;
+      color: #b03a2e;
+    }
+
+    .formulario-dashboard {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    .formulario-dashboard button {
+      padding: 12px 20px;
+      font-size: 1rem;
+      border: none;
+      background-color: #b03a2e;
+      color: #ffffff;
+      border-radius: 6px;
+      text-align: left;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .formulario-dashboard button:hover {
+      background-color: #a93226;
+    }
+  </style>
 </body>
 </html>
