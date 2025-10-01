@@ -36,15 +36,16 @@
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const alias = document.getElementById('alias').value.trim();
+      const alias = document.getElementById('alias').value.trim().toLowerCase();
       const clave = document.getElementById('clave').value;
 
-      // 🔍 Buscar usuario por alias
       const { data: usuario, error } = await client
         .from('usuario')
         .select('alias, clave, nivelid, activo')
         .eq('alias', alias)
         .single();
+
+      console.log('Resultado de búsqueda:', usuario, error); // 🔍 Depuración
 
       if (error || !usuario) {
         document.getElementById('mensaje').textContent = 'Alias no encontrado';
@@ -61,7 +62,6 @@
         return;
       }
 
-      // 🚀 Redirigir según nivelid
       switch (usuario.nivelid) {
         case 1:
           window.location.href = 'dashboard_admin.html';
