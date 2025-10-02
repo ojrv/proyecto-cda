@@ -71,25 +71,24 @@
       };
 
       localStorage.setItem('usuario', JSON.stringify(usuarioFinal));
-
-      // ✅ Visor temporal en pantalla
-      const visor = document.createElement('pre');
-      visor.textContent = JSON.stringify(usuarioFinal, null, 2);
-      visor.style.background = '#f9f2f4';
-      visor.style.border = '1px solid #b03a2e';
-      visor.style.padding = '10px';
-      visor.style.marginTop = '20px';
-      visor.style.color = '#333';
-      visor.style.maxWidth = '400px';
-      visor.style.marginLeft = '30px';
-     // document.body.appendChild(visor);
-
-      mensaje.textContent = '✅ Usuario validado. Datos cargados correctamente.';
+      mensaje.textContent = '✅ Usuario validado. Redirigiendo...';
       mensaje.style.color = '#2e7d32';
 
-     // return; // ⛔ Detener redirección para ver el visor
+      // ✅ Redirigir según nivel
+      switch (usuarioFinal.nivelid) {
+        case 1:
+          window.location.href = 'dashboard_admin.html';
+          break;
+        case 2:
+          window.location.href = 'dashboard_editor.html';
+          break;
+        case 3:
+          window.location.href = 'dashboard_musico.html';
+          break;
+        default:
+          mensaje.textContent = 'Nivel no reconocido';
+      }
     });
   </script>
 </body>
 </html>
-
