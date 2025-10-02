@@ -42,7 +42,7 @@
 
       const { data: usuario, error } = await client
         .from('usuario')
-        .select('alias, clave, nivelid, activo')
+        .select('alias, nombre, clave, nivelid, activo')
         .eq('alias', alias)
         .single();
 
