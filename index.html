@@ -38,6 +38,7 @@
 
       const alias = document.getElementById('alias').value.trim().toLowerCase();
       const clave = document.getElementById('clave').value;
+      const mensaje = document.getElementById('mensaje');
 
       const { data: usuario, error } = await client
         .from('usuario')
@@ -48,20 +49,25 @@
       console.log('Resultado de búsqueda:', usuario, error); // 🔍 Depuración
 
       if (error || !usuario) {
-        document.getElementById('mensaje').textContent = 'Alias no encontrado';
+        mensaje.textContent = 'Alias no encontrado';
         return;
       }
 
       if (!usuario.activo) {
-        document.getElementById('mensaje').textContent = 'Usuario inactivo';
+        mensaje.textContent = 'Usuario inactivo';
         return;
       }
 
       if (usuario.clave !== clave) {
-        document.getElementById('mensaje').textContent = 'Contraseña incorrecta';
+        mensaje.textContent = 'Contraseña incorrecta';
         return;
       }
 
+      // ✅ Guardar sesión antes de redirigir
+      localStorage.setItem('usuario', JSON.stringify(usuario));
+      console.log('Usuario guardado en localStorage:', usuario);
+
+      // ✅ Redirigir según nivel
       switch (usuario.nivelid) {
         case 1:
           window.location.href = 'dashboard_admin.html';
@@ -73,7 +79,7 @@
           window.location.href = 'dashboard_musico.html';
           break;
         default:
-          alert('Nivel no reconocido');
+          mensaje.textContent = 'Nivel no reconocido';
       }
     });
   </script>
