@@ -27,10 +27,38 @@
       <button onclick="verEstadisticas()">Ver estadísticas por nivel</button>
       <button onclick="gestionarUsuarios()">Gestión de usuarios activos</button>
       <button onclick="configuracionSistema()">Configuración del sistema</button>
+      <button onclick="cerrarSesion()">Cerrar sesión</button>
     </section>
   </main>
 
   <script>
+    // 🔐 Validación obligatoria de sesión
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    if (!usuario || usuario.nivelid !== 1) {
+      alert('Acceso no autorizado. Por favor, iniciá sesión.');
+      window.location.href = 'index.html';
+    }
+
+    // 🧠 Mostrar datos de sesión
+    function mostrarDatosSesion() {
+      const fecha = new Date().toLocaleDateString('es-UY', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+
+      const bloque = document.getElementById('bloqueSesion');
+      bloque.innerHTML = `
+        <div><i class="fas fa-user"></i> ${usuario.alias}</div>
+        <div><i class="fas fa-shield-alt"></i> Administrador</div>
+        <div><i class="fas fa-calendar-day"></i> ${fecha}</div>
+        <div><i class="fas fa-clock"></i> <span id="horaActual"></span></div>
+      `;
+    }
+
+    mostrarDatosSesion();
+
     // ⏰ Reloj institucional en tiempo real
     function actualizarHora() {
       const ahora = new Date();
@@ -46,29 +74,6 @@
     }
 
     setInterval(actualizarHora, 1000);
-
-    // 🧠 Mostrar datos de sesión desde localStorage
-    function mostrarDatosSesion() {
-      const usuario = JSON.parse(localStorage.getItem('usuario'));
-      if (!usuario) return;
-
-      const fecha = new Date().toLocaleDateString('es-UY', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
-
-      const bloque = document.getElementById('bloqueSesion');
-      bloque.innerHTML = `
-        <div><i class="fas fa-user"></i> ${usuario.alias}</div>
-        <div><i class="fas fa-shield-alt"></i> ${usuario.nivelid === 1 ? 'Administrador' : 'Usuario'}</div>
-        <div><i class="fas fa-calendar-day"></i> ${fecha}</div>
-        <div><i class="fas fa-clock"></i> <span id="horaActual"></span></div>
-      `;
-    }
-
-    mostrarDatosSesion();
 
     // 🔗 Funciones preliminares
     function registrarUsuario() {
@@ -89,6 +94,11 @@
 
     function configuracionSistema() {
       alert('Función en desarrollo: configuración institucional');
+    }
+
+    function cerrarSesion() {
+      localStorage.removeItem('usuario');
+      window.location.href = 'index.html';
     }
   </script>
 
