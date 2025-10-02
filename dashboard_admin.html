@@ -1,177 +1,56 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel Administrativo</title>
-  <link rel="stylesheet" href="estilos.css" />
-  <script src="https://kit.fontawesome.com/768734fbc4.js" crossorigin="anonymous"></script>
-</head>
-<body>
-  <header class="encabezado">
-    <img src="logo_cda.png" alt="Logo institucional" />
-    <h1>Grupo de Adoración y Alabanza</h1>
-    <h2>Panel Administrativo</h2>
-  </header>
+<script>
+  const client = window.supabase.createClient(
+    'https://fdlnptxefjzoxeiqsujx.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkbG5wdHhlZmp6b3hlaXFzdWp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NDE3ODIsImV4cCI6MjA3NDQxNzc4Mn0.BI9M80Fr-AevXnHBATTJZkRjFrCGn4x7cgDPkTinNms'
+  );
 
-  <main>
-    <!-- 🔐 Bloque de sesión dinámico -->
-    <section class="bloque-sesion" id="bloqueSesion">
-      <!-- Se llenará con datos reales -->
-    </section>
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    <!-- ⚙️ Funciones disponibles -->
-    <section class="formulario-dashboard">
-      <button onclick="registrarUsuario()">Registrar nuevo usuario</button>
-      <button onclick="editarNiveles()">Editar niveles institucionales</button>
-      <button onclick="verEstadisticas()">Ver estadísticas por nivel</button>
-      <button onclick="gestionarUsuarios()">Gestión de usuarios activos</button>
-      <button onclick="configuracionSistema()">Configuración del sistema</button>
-      <button onclick="cerrarSesion()">Cerrar sesión</button>
-    </section>
-  </main>
+    const alias = document.getElementById('alias').value.trim().toLowerCase();
+    const clave = document.getElementById('clave').value;
 
-  <script>
-    // 🔐 Validación obligatoria de sesión
-    const usuario = JSON.parse(localStorage.getItem('usuario'));
-    if (!usuario || usuario.nivelid !== 1) {
-      alert('Acceso no autorizado. Por favor, iniciá sesión.');
-      window.location.href = 'index.html';
+    const { data: usuario, error } = await client
+      .from('usuario')
+      .select('alias, clave, nivelid, activo')
+      .eq('alias', alias)
+      .single();
+
+    console.log('Resultado de búsqueda:', usuario, error); // 🔍 Depuración
+
+    const mensaje = document.getElementById('mensaje');
+
+    if (error || !usuario) {
+      mensaje.textContent = 'Alias no encontrado';
+      return;
     }
 
-    // 🧠 Mostrar datos de sesión
-    function mostrarDatosSesion() {
-      const fecha = new Date().toLocaleDateString('es-UY', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
-
-      const bloque = document.getElementById('bloqueSesion');
-      bloque.innerHTML = `
-        <div><i class="fas fa-user"></i> ${usuario.alias}</div>
-        <div><i class="fas fa-shield-alt"></i> Administrador</div>
-        <div><i class="fas fa-calendar-day"></i> ${fecha}</div>
-        <div><i class="fas fa-clock"></i> <span id="horaActual"></span></div>
-      `;
+    if (!usuario.activo) {
+      mensaje.textContent = 'Usuario inactivo';
+      return;
     }
 
-    mostrarDatosSesion();
-
-    // ⏰ Reloj institucional en tiempo real
-    function actualizarHora() {
-      const ahora = new Date();
-      const opciones = {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-      };
-      const horaFormateada = ahora.toLocaleTimeString('es-UY', opciones);
-      const reloj = document.getElementById('horaActual');
-      if (reloj) reloj.textContent = horaFormateada;
+    if (usuario.clave !== clave) {
+      mensaje.textContent = 'Contraseña incorrecta';
+      return;
     }
 
-    setInterval(actualizarHora, 1000);
+    // ✅ Guardamos el usuario en localStorage
+    localStorage.setItem('usuario', JSON.stringify(usuario));
 
-    // 🔗 Funciones preliminares
-    function registrarUsuario() {
-      window.location.href = 'registro.html';
+    // ✅ Redirigimos según nivel
+    switch (usuario.nivelid) {
+      case 1:
+        window.location.href = 'dashboard_admin.html';
+        break;
+      case 2:
+        window.location.href = 'dashboard_editor.html';
+        break;
+      case 3:
+        window.location.href = 'dashboard_musico.html';
+        break;
+      default:
+        mensaje.textContent = 'Nivel no reconocido';
     }
-
-    function editarNiveles() {
-      alert('Función en desarrollo: edición de niveles');
-    }
-
-    function verEstadisticas() {
-      alert('Función en desarrollo: estadísticas por nivel');
-    }
-
-    function gestionarUsuarios() {
-      alert('Función en desarrollo: gestión de usuarios');
-    }
-
-    function configuracionSistema() {
-      alert('Función en desarrollo: configuración institucional');
-    }
-
-    function cerrarSesion() {
-      localStorage.removeItem('usuario');
-      window.location.href = 'index.html';
-    }
-  </script>
-
-  <style>
-    body {
-      background-color: #fdf6e3;
-      color: #333333;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    .encabezado {
-      background-color: #fdf6e3;
-      color: #333333;
-      text-align: center;
-      padding: 20px;
-      border-bottom: 2px solid #cfa93f;
-    }
-
-    .encabezado img {
-      max-height: 80px;
-      margin-bottom: 10px;
-    }
-
-    .encabezado h1 {
-      margin: 0;
-      font-size: 1.8rem;
-    }
-
-    .encabezado h2 {
-      margin: 5px 0 0;
-      font-size: 1.2rem;
-      color: #b03a2e;
-    }
-
-    .bloque-sesion {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 1rem;
-      margin: 30px 0 40px 30px;
-    }
-
-    .bloque-sesion i {
-      margin-right: 8px;
-      color: #b03a2e;
-    }
-
-    .formulario-dashboard {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      padding-left: 30px;
-      padding-right: 30px;
-    }
-
-    .formulario-dashboard button {
-      padding: 12px 20px;
-      font-size: 1rem;
-      border: none;
-      background-color: #b03a2e;
-      color: #ffffff;
-      border-radius: 6px;
-      text-align: left;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-
-    .formulario-dashboard button:hover {
-      background-color: #a93226;
-    }
-  </style>
-</body>
-</html>
+  });
+</script>
