@@ -15,12 +15,10 @@
   </header>
 
   <main>
-    <!-- 🔐 Bloque de sesión dinámico -->
     <section class="bloque-sesion" id="bloqueSesion">
-      <!-- Se llenará con datos reales -->
+      <!-- Se llenará dinámicamente -->
     </section>
 
-    <!-- ⚙️ Funciones disponibles -->
     <section class="formulario-dashboard">
       <button onclick="registrarUsuario()">Registrar nuevo usuario</button>
       <button onclick="editarNiveles()">Editar niveles institucionales</button>
@@ -32,20 +30,20 @@
   </main>
 
   <script>
-    // 🛡️ Validación de sesión y acceso
-    let usuario = null;
-    try {
-      const usuarioRaw = localStorage.getItem('usuario');
-      if (!usuarioRaw) throw new Error('No hay datos en localStorage');
-      usuario = JSON.parse(usuarioRaw);
-      if (!usuario || usuario.nivelid !== 1) throw new Error('Nivel no autorizado');
-    } catch (error) {
-      alert('Sesión no iniciada. Redirigiendo al login.');
-      window.location.href = 'index.html';
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+      let usuario = null;
 
-    // 🧠 Mostrar datos de sesión
-    function mostrarDatosSesion() {
+      try {
+        const usuarioRaw = localStorage.getItem('usuario');
+        if (!usuarioRaw) throw new Error('No hay datos en localStorage');
+        usuario = JSON.parse(usuarioRaw);
+        if (!usuario || usuario.nivelid !== 1) throw new Error('Nivel no autorizado');
+      } catch (error) {
+        alert('Sesión no iniciada. Redirigiendo al login.');
+        window.location.href = 'index.html';
+        return;
+      }
+
       const fecha = new Date().toLocaleDateString('es-UY', {
         weekday: 'long',
         day: 'numeric',
@@ -60,51 +58,32 @@
         <div><i class="fas fa-calendar-day"></i> ${fecha}</div>
         <div><i class="fas fa-clock"></i> <span id="horaActual"></span></div>
       `;
-    }
 
-    mostrarDatosSesion();
+      function actualizarHora() {
+        const ahora = new Date();
+        const opciones = {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        };
+        const horaFormateada = ahora.toLocaleTimeString('es-UY', opciones);
+        const reloj = document.getElementById('horaActual');
+        if (reloj) reloj.textContent = horaFormateada;
+      }
 
-    // ⏰ Reloj institucional en tiempo real
-    function actualizarHora() {
-      const ahora = new Date();
-      const opciones = {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
+      setInterval(actualizarHora, 1000);
+
+      window.registrarUsuario = () => window.location.href = 'registro.html';
+      window.editarNiveles = () => alert('Función en desarrollo: edición de niveles');
+      window.verEstadisticas = () => alert('Función en desarrollo: estadísticas por nivel');
+      window.gestionarUsuarios = () => alert('Función en desarrollo: gestión de usuarios');
+      window.configuracionSistema = () => alert('Función en desarrollo: configuración institucional');
+      window.cerrarSesion = () => {
+        localStorage.removeItem('usuario');
+        window.location.href = 'index.html';
       };
-      const horaFormateada = ahora.toLocaleTimeString('es-UY', opciones);
-      const reloj = document.getElementById('horaActual');
-      if (reloj) reloj.textContent = horaFormateada;
-    }
-
-    setInterval(actualizarHora, 1000);
-
-    // 🔗 Funciones preliminares
-    function registrarUsuario() {
-      window.location.href = 'registro.html';
-    }
-
-    function editarNiveles() {
-      alert('Función en desarrollo: edición de niveles');
-    }
-
-    function verEstadisticas() {
-      alert('Función en desarrollo: estadísticas por nivel');
-    }
-
-    function gestionarUsuarios() {
-      alert('Función en desarrollo: gestión de usuarios');
-    }
-
-    function configuracionSistema() {
-      alert('Función en desarrollo: configuración institucional');
-    }
-
-    function cerrarSesion() {
-      localStorage.removeItem('usuario');
-      window.location.href = 'index.html';
-    }
+    });
   </script>
 
   <style>
