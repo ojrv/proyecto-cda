@@ -32,21 +32,15 @@
   </main>
 
   <script>
-    // 🛡️ Diagnóstico de sesión y acceso
-    const usuarioRaw = localStorage.getItem('usuario');
+    // 🛡️ Validación de sesión y acceso
     let usuario = null;
-
     try {
+      const usuarioRaw = localStorage.getItem('usuario');
+      if (!usuarioRaw) throw new Error('No hay datos en localStorage');
       usuario = JSON.parse(usuarioRaw);
-    } catch (e) {
-      console.error('Error al parsear usuario:', e);
-    }
-
-    if (!usuario) {
+      if (!usuario || usuario.nivelid !== 1) throw new Error('Nivel no autorizado');
+    } catch (error) {
       alert('Sesión no iniciada. Redirigiendo al login.');
-      window.location.href = 'index.html';
-    } else if (usuario.nivelid !== 1) {
-      alert(`Acceso denegado para nivel ${usuario.nivelid}. Este panel es solo para administradores.`);
       window.location.href = 'index.html';
     }
 
