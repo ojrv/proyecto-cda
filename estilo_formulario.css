@@ -1,0 +1,81 @@
+/* 🎨 Paleta suave para login */
+:root {
+  --color-fondo: #fdf6e3;
+  --color-texto: #333333;
+  --color-primario: #b03a2e;
+  --color-secundario: #cfa93f;
+  --color-claro: #ffffff;
+}
+
+/* 🧭 Encabezado */
+.encabezado {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  text-align: center;
+  padding: 20px;
+  border-bottom: 2px solid var(--color-secundario);
+}
+
+.encabezado img {
+  max-height: 80px;
+  margin-bottom: 10px;
+}
+
+.encabezado h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.encabezado h2 {
+  margin: 5px 0 0;
+  font-size: 1.2rem;
+  color: var(--color-primario);
+}
+
+/* 🧩 Formulario centrado */
+.formulario-dashboard {
+  width: 100%;
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+  background-color: var(--color-claro);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* 🖊️ Campos */
+input[type="text"],
+input[type="password"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 🔘 Botón */
+button[type="submit"] {
+  padding: 12px;
+  font-size: 1rem;
+  background-color: var(--color-primario);
+  color: var(--color-claro);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #a93226;
+}
+
+/* 📢 Mensaje */
+#mensaje {
+  font-weight: bold;
+  color: var(--color-primario);
+  margin-top: 10px;
+}
