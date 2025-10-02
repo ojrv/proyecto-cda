@@ -15,12 +15,9 @@
   </header>
 
   <main>
-    <!-- 🔐 Bloque de sesión -->
-    <section class="bloque-sesion">
-      <div><i class="fas fa-user"></i> Oswaldo Rosas</div>
-      <div><i class="fas fa-shield-alt"></i> Administrador</div>
-      <div><i class="fas fa-calendar-day"></i> miércoles, 1 de octubre de 2025</div>
-      <div><i class="fas fa-clock"></i> <span id="horaActual"></span></div>
+    <!-- 🔐 Bloque de sesión dinámico -->
+    <section class="bloque-sesion" id="bloqueSesion">
+      <!-- Se llenará con datos reales -->
     </section>
 
     <!-- ⚙️ Funciones disponibles -->
@@ -44,10 +41,34 @@
         hour12: true
       };
       const horaFormateada = ahora.toLocaleTimeString('es-UY', opciones);
-      document.getElementById('horaActual').textContent = horaFormateada;
+      const reloj = document.getElementById('horaActual');
+      if (reloj) reloj.textContent = horaFormateada;
     }
 
     setInterval(actualizarHora, 1000);
+
+    // 🧠 Mostrar datos de sesión desde localStorage
+    function mostrarDatosSesion() {
+      const usuario = JSON.parse(localStorage.getItem('usuario'));
+      if (!usuario) return;
+
+      const fecha = new Date().toLocaleDateString('es-UY', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+
+      const bloque = document.getElementById('bloqueSesion');
+      bloque.innerHTML = `
+        <div><i class="fas fa-user"></i> ${usuario.alias}</div>
+        <div><i class="fas fa-shield-alt"></i> ${usuario.nivelid === 1 ? 'Administrador' : 'Usuario'}</div>
+        <div><i class="fas fa-calendar-day"></i> ${fecha}</div>
+        <div><i class="fas fa-clock"></i> <span id="horaActual"></span></div>
+      `;
+    }
+
+    mostrarDatosSesion();
 
     // 🔗 Funciones preliminares
     function registrarUsuario() {
@@ -81,11 +102,11 @@
     }
 
     .encabezado {
-      background-color: #2c3e50;
-      color: #ffffff;
+      background-color: #fdf6e3;
+      color: #333333;
       text-align: center;
       padding: 20px;
-      border-bottom: 3px solid #cfa93f;
+      border-bottom: 2px solid #cfa93f;
     }
 
     .encabezado img {
@@ -101,7 +122,7 @@
     .encabezado h2 {
       margin: 5px 0 0;
       font-size: 1.2rem;
-      color: #f8f8f8;
+      color: #b03a2e;
     }
 
     .bloque-sesion {
@@ -109,7 +130,7 @@
       flex-direction: column;
       gap: 6px;
       font-size: 1rem;
-      margin: 30px 0 40px 30px; /* ← separación aumentada */
+      margin: 30px 0 40px 30px;
     }
 
     .bloque-sesion i {
