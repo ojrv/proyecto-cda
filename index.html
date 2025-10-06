@@ -75,23 +75,28 @@
       mensaje.style.color = '#2e7d32';
 
       // ✅ Redirigir según nivel
-      switch (usuarioFinal.nivelid) {
-        case 1:
-          window.location.href = 'dashboard_admin.html';
-          break;
-        case 2:
-          window.location.href = 'dashboard_editor.html';
-          break;
-        case 3:
-          window.location.href = 'dashboard_musico.html';
-          break;
-        default:
-          mensaje.textContent = 'Nivel no reconocido';
-      }
+    if (usuarioFinal.alias === 'orosas') {
+  window.location.href = 'dashboard_general.html';
+} else {
+  switch (usuarioFinal.nivelid) {
+    case 1:
+      window.location.href = 'dashboard_admin.html';
+      break;
+    case 2:
+      window.location.href = 'dashboard_editor.html';
+      break;
+    case 3:
+      window.location.href = 'dashboard_musico.html';
+      break;
+    default:
+      mensaje.textContent = 'Nivel no reconocido';
+  }
+}
     });
   </script>
 </body>
 </html>
+
 
 
 
