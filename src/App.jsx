@@ -2,7 +2,8 @@ import React from 'react';
 import DashboardOperativo from './components/DashboardOperativo';
 
 function App() {
-  const uid = 7; // Reemplazá por el ID real del usuario logueado
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+  const uid = usuario?.nivelid || 0;
 
   return (
     <div style={{ padding: '2rem' }}>
